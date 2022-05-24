@@ -51,6 +51,14 @@ async function run() {
 
         })
 
+        //get order collection
+        app.get('/booking', async (req, res) => {
+            const customer = req.query.customer;
+            const query = { customer: customer };
+            const bookings = await bookingCollection.find(query).toArray();
+            res.send(bookings);
+        })
+
     }
     finally {
 
