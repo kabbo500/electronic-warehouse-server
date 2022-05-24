@@ -18,6 +18,7 @@ async function run() {
         await client.connect();
         const productCollection = client.db('parts_manufacturing').collection('products');
         const reviewCollection = client.db('parts_manufacturing').collection('reviews');
+        const bookingCollection = client.db('parts_manufacturing').collection('bookings');
 
         app.get('/product', async (req, res) => {
             const query = {};
@@ -40,6 +41,15 @@ async function run() {
             res.send(product);
 
         });
+
+
+        //purchase collection
+        app.post('/booking', async (req, res) => {
+            const booking = req.body;
+            const result = await bookingCollection.insertOne(booking);
+            res.send(result);
+
+        })
 
     }
     finally {
