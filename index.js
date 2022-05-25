@@ -120,6 +120,14 @@ async function run() {
 
         });
 
+        //get all order collection
+        app.get('/booking', async (req, res) => {
+            const query = {};
+            const cursor = bookingCollection.find(query);
+            const bookings = await cursor.toArray(query);
+            res.send(bookings);
+        })
+
 
         //purchase collection
         app.post('/booking', async (req, res) => {
