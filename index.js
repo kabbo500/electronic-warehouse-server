@@ -44,6 +44,13 @@ async function run() {
             res.send(products);
         })
 
+        // add new product by admin
+        app.post('/product', async (req, res) => {
+            const product = req.body;
+            const result = await productCollection.insertOne(product);
+            res.send(result);
+        });
+
         //user collection
         app.put('/user/:email', async (req, res) => {
             const email = req.params.email;
@@ -96,6 +103,14 @@ async function run() {
             const reviews = await cursor.toArray(query);
             res.send(reviews);
         })
+
+        //add new review
+        app.post('/review', async (req, res) => {
+            const review = req.body;
+            const result = await reviewCollection.insertOne(review);
+            res.send(result);
+        });
+
 
         app.get('/product/:id', async (req, res) => {
             const id = req.params.id;
