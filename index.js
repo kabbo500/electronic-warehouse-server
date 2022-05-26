@@ -122,6 +122,13 @@ async function run() {
 
         });
 
+        //Delete product by Admin
+        app.delete('/product/:id', async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: ObjectId(id) };
+            const result = await productCollection.deleteOne(query);
+            res.send(result);
+        })
 
         app.post('/create-payment-intent', verifyJWT, async (req, res) => {
             const service = req.body;
@@ -168,6 +175,13 @@ async function run() {
             res.send(booking);
         })
 
+        //delete orders before payment
+        app.delete('/booking/:id', async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: ObjectId(id) };
+            const result = await bookingCollection.deleteOne(query);
+            res.send(result);
+        })
 
         //purchase collection
         app.post('/booking', async (req, res) => {
